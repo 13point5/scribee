@@ -13,10 +13,12 @@ const tailwindColors = [
 
 const Palette = () => {
   return (
-    <div className="z-[300] mt-3 w-full flex gap-2 items-center justify-center">
-      {tailwindColors.map((color, index) => (
-        <PaletteColor color={color} key={color} active={false} />
-      ))}
+    <div className="fixed top-[80px] z-[300] inset-0 pointer-events-none">
+      <div className="fixed w-full flex gap-2 items-center justify-center pointer-events-auto">
+        {tailwindColors.map((color, index) => (
+          <PaletteColor color={color} key={color} active={false} />
+        ))}
+      </div>
     </div>
   );
 };

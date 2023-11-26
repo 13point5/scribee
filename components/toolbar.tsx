@@ -40,8 +40,8 @@ const Toolbar = track(() => {
   });
 
   return (
-    <div className="absolute z-[300] inset-0 pointer-events-none">
-      <div className="absolute top-0 left-0 w-full flex items-center justify-center p-2 gap-2 pointer-events-auto">
+    <div className="fixed z-[300] inset-0 pointer-events-none bottom-0">
+      <div className="fixed bottom-0 left-0 w-full flex items-center justify-center p-2 gap-2 pointer-events-auto">
         <Button
           data-isactive={editor.currentToolId === "select"}
           onClick={() => editor.setCurrentTool("select")}
