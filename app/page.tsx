@@ -12,7 +12,7 @@ export default function Home() {
       <Header />
 
       <div className="w-full h-full grow flex items-center justify-center">
-        <div className="flex flex-col items-center justify-center w-[900px] h-[600px]">
+        <div className="flex flex-col items-center justify-center w-[900px] h-[485px]">
           <Tldraw hideUi>
             <Palette />
             <Canvas />
