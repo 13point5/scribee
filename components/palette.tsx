@@ -13,7 +13,7 @@ const tailwindColors = [
 
 const Palette = () => {
   return (
-    <div className="mt-3 w-full flex gap-2 items-center justify-center">
+    <div className="z-[300] mt-3 w-full flex gap-2 items-center justify-center">
       {tailwindColors.map((color, index) => (
         <PaletteColor color={color} key={color} active={false} />
       ))}

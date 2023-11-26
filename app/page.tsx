@@ -1,13 +1,23 @@
+"use client";
+
 import Header from "@/components/header";
 import Palette from "@/components/palette";
+import Toolbar from "@/components/toolbar";
+import { Canvas, Tldraw, track, useEditor } from "@tldraw/tldraw";
+import "@tldraw/tldraw/tldraw.css";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center">
       <Header />
 
-      <div className="flex flex-col items-center justify-center w-full h-full">
-        <Palette />
+      <div className="flex flex-col items-center justify-center w-[900px] h-[600px]">
+        <Tldraw hideUi>
+          <Palette />
+
+          <Canvas />
+          <Toolbar />
+        </Tldraw>
       </div>
     </main>
   );
