@@ -19,7 +19,7 @@ import axios from "axios";
 import * as ByteScale from "@bytescale/sdk";
 import StoryPage from "./story-page";
 import Toolbar from "@/components/toolbar";
-import { Stage, StoryStateItem } from "@/app/page";
+import { StoryStateItem } from "@/app/types";
 
 // export default StoryPage;
 

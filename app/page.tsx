@@ -2,15 +2,8 @@
 
 import StoryIdeaPage from "@/app/idea-page";
 import SelectIdeaPage from "@/app/select-idea-page";
+import { StoryStateItem, Stage } from "@/app/types";
 import { useState } from "react";
-
-export type StoryStateItem = { title: string; imgUrl: string };
-
-export enum Stage {
-  Idea,
-  SelectIdea,
-  Page,
-}
 
 const Home = () => {
   const [stories, setStories] = useState<StoryStateItem[] | null>(null);
