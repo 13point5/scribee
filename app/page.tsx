@@ -65,7 +65,7 @@ const StoryIdeaPage = () => {
           <Tldraw hideUi onMount={handleMount} className="rounded-lg">
             <Canvas />
 
-            <div className="w-full flex gap-4 justify-end z-[300] fixed top-[520px] right-[205px]">
+            <div className="w-full flex gap-4 justify-end z-[300] fixed top-[520px] right-[225px]">
               <NextButton />
             </div>
           </Tldraw>
