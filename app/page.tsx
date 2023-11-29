@@ -19,7 +19,7 @@ import axios from "axios";
 import * as ByteScale from "@bytescale/sdk";
 import StoryPage from "./story-page";
 
-export default StoryPage;
+// export default StoryPage;
 
 const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
   defaultValue: "m",
@@ -65,7 +65,7 @@ const StoryIdeaPage = () => {
           <Tldraw hideUi onMount={handleMount} className="rounded-lg">
             <Canvas />
 
-            <div className="w-full flex gap-4 justify-end z-[300] fixed top-[520px] right-[380px]">
+            <div className="w-full flex gap-4 justify-end z-[300] fixed top-[520px] right-[185px]">
               <NextButton />
             </div>
           </Tldraw>
@@ -75,7 +75,7 @@ const StoryIdeaPage = () => {
   );
 };
 
-// export default StoryIdeaPage;
+export default StoryIdeaPage;
 
 const uploadManager = new ByteScale.UploadManager({
   apiKey: "public_W142iLu7Bprevy3B942MBWvx28Gy", // This is your API key.
