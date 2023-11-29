@@ -47,7 +47,7 @@ const StoryIdeaPage = () => {
     <main className="flex min-h-screen flex-col items-center relative">
       <Header />
 
-      <div className="w-[745px] h-full grow flex flex-col items-center py-10 px-15">
+      <div className="w-[745px] h-full grow flex flex-col items-center py-10 px-15 border-2">
         <div className="relative mb-20">
           <img
             src="scribee1.svg"
