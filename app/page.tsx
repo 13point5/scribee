@@ -59,7 +59,7 @@ const Home = () => {
   };
 
   if (stage === Stage.Idea)
-    return <StoryIdeaPage setStories={handleSetStories} />;
+    return <StoryIdeaPage setStories={handleSetStories} setStage={setStage} />;
 
   if (stage === Stage.SelectIdea && stories)
     return (
@@ -68,6 +68,7 @@ const Home = () => {
         storyIndex={storyIndex}
         setStoryIndex={setStoryIndex}
         handleNext={handleStartWriting}
+        setStage={setStage}
       />
     );
 
@@ -83,6 +84,8 @@ const Home = () => {
         picUrl={pages[currentPageIndex].picUrl}
         feedbacks={pages[currentPageIndex].feedbacks}
         setFeedbacks={setFeedbacks}
+        setStage={setStage}
+        pageIndex={currentPageIndex}
       />
     );
 

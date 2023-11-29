@@ -1,4 +1,4 @@
-import { StoryStateItem } from "@/app/types";
+import { StageSetter, StoryStateItem } from "@/app/types";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { b64_json_to_dataUrl } from "@/lib/utils";
@@ -11,11 +11,13 @@ const SelectIdeaPage = ({
   storyIndex,
   setStoryIndex,
   handleNext,
+  setStage,
 }: {
   stories: StoryStateItem[];
   storyIndex: number;
   setStoryIndex: (index: number) => void;
   handleNext: (imgUrl: string) => void;
+  setStage: StageSetter;
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -40,7 +42,7 @@ const SelectIdeaPage = ({
 
   return (
     <main className="flex min-h-screen flex-col items-center relative">
-      <Header />
+      <Header setStage={setStage} />
 
       <div className="w-[745px] h-full grow flex flex-col gap-8 items-center py-10 px-15">
         <img

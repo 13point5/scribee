@@ -17,3 +17,5 @@ export type FeedbacksForPage = null | {
   mechanics: string;
   creative: string;
 };
+
+export type StageSetter = (stage: Stage) => void;

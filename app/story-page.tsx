@@ -7,7 +7,7 @@ import Palette from "@/components/palette";
 import Toolbar from "@/components/toolbar";
 import { Canvas, Tldraw, Editor, Box2d, StyleProp } from "@tldraw/tldraw";
 import "@tldraw/tldraw/tldraw.css";
-import { FeedbacksForPage, PageStateItem } from "@/app/types";
+import { FeedbacksForPage, PageStateItem, StageSetter } from "@/app/types";
 import { dataURLtoFile } from "@/lib/utils";
 
 const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
@@ -20,7 +20,11 @@ export default function StoryPage({
   title,
   feedbacks,
   setFeedbacks,
+  pageIndex,
+  setStage,
 }: {
+  setStage: StageSetter;
+  pageIndex: number;
   title: string;
   picUrl: PageStateItem["picUrl"];
   feedbacks: FeedbacksForPage;
@@ -55,11 +59,16 @@ export default function StoryPage({
 
   return (
     <main className="flex flex-col items-center relative overflow-hidden">
-      <Header title={title} />
+      <Header title={title} setStage={setStage} />
 
       <div className="w-full flex items-center justify-center">
         <div className="flex flex-col items-center justify-center mt-[105px] w-[900px] h-[385px]">
-          <Tldraw hideUi onMount={handleMount} className="rounded-lg">
+          <Tldraw
+            hideUi
+            onMount={handleMount}
+            className="rounded-lg"
+            persistenceKey={`page-${pageIndex}`}
+          >
             <Palette />
             <Canvas />
 
@@ -69,7 +78,11 @@ export default function StoryPage({
 
             <Toolbar />
 
-            <NextPageButton feedbacks={feedbacks} setFeedbacks={setFeedbacks} />
+            <NextPageButton
+              feedbacks={feedbacks}
+              setFeedbacks={setFeedbacks}
+              pageIndex={pageIndex}
+            />
           </Tldraw>
         </div>
       </div>

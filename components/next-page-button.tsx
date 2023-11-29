@@ -27,7 +27,7 @@ const uploadManager = new ByteScale.UploadManager({
   apiKey: "public_W142iLu7Bprevy3B942MBWvx28Gy", // This is your API key.
 });
 
-const NextPageButton = track(({ feedbacks, setFeedbacks }) => {
+const NextPageButton = track(({ feedbacks, setFeedbacks, pageIndex }) => {
   console.log("feedbacks", feedbacks);
   const editor = useEditor();
 
@@ -114,13 +114,15 @@ const NextPageButton = track(({ feedbacks, setFeedbacks }) => {
     <div className="fixed top-[45%] right-[0px] left-0 z-[300] inset-0 pointer-events-none">
       <div className="pointer-events-auto w-full flex items-center justify-between fixed px-[50px]">
         <div className="flex flex-col gap-4">
-          <Button
-            size="icon"
-            className={`w-[45px] h-[45px] rounded-full`}
-            variant="outline"
-          >
-            <ArrowLeftIcon size={25} />
-          </Button>
+          {pageIndex > 0 && (
+            <Button
+              size="icon"
+              className={`w-[45px] h-[45px] rounded-full`}
+              variant="outline"
+            >
+              <ArrowLeftIcon size={25} />
+            </Button>
+          )}
 
           <Dialog>
             <DialogTrigger>
@@ -192,7 +194,7 @@ const NextPageButton = track(({ feedbacks, setFeedbacks }) => {
 
           <Button
             size="icon"
-            className={`w-[45px] h-[45px] rounded-full`}
+            className={`w-[45px] h-[45px] rounded-full disabled:cursor-not-allowed`}
             disabled={!feedbacks}
             variant="outline"
           >

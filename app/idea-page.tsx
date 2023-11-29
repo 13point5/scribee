@@ -19,7 +19,7 @@ import axios from "axios";
 import * as ByteScale from "@bytescale/sdk";
 import StoryPage from "./story-page";
 import Toolbar from "@/components/toolbar";
-import { StoryStateItem } from "@/app/types";
+import { StageSetter, StoryStateItem } from "@/app/types";
 
 // export default StoryPage;
 
@@ -29,9 +29,11 @@ const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
 });
 
 const StoryIdeaPage = ({
+  setStage,
   setStories,
 }: {
   setStories: (stories: StoryStateItem[] | null) => void;
+  setStage: StageSetter;
 }) => {
   const [generatingIdeas, setGeneratingIdeas] = useState(false);
 
@@ -52,7 +54,7 @@ const StoryIdeaPage = ({
 
   return (
     <main className="flex min-h-screen flex-col items-center relative">
-      <Header />
+      <Header setStage={setStage} />
 
       <div className="w-[745px] h-full grow flex flex-col items-center py-10 px-15">
         <div className="relative mb-20">
