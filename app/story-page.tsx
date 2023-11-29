@@ -11,7 +11,7 @@ import { PageStateItem } from "@/app/types";
 import { dataURLtoFile } from "@/lib/utils";
 
 const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
-  defaultValue: "m",
+  defaultValue: "l",
   values: ["s", "m", "l", "xl"],
 });
 
@@ -31,11 +31,11 @@ export default function StoryPage({
 
     editor.batch(() => {
       if (editor.isIn("select")) {
-        editor.setStyleForSelectedShapes(DefaultSizeStyle, "m", {
+        editor.setStyleForSelectedShapes(DefaultSizeStyle, "l", {
           squashing: false,
         });
       }
-      editor.setStyleForNextShapes(DefaultSizeStyle, "m", {
+      editor.setStyleForNextShapes(DefaultSizeStyle, "l", {
         squashing: false,
       });
       editor.updateInstanceState({ isChangingStyle: true });
