@@ -55,10 +55,10 @@ export default function StoryPage() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center relative">
+    <main className="flex min-h-screen flex-col items-center relative overflow-hidden">
       <Header />
 
-      <div className="w-full h-full grow flex items-center justify-center">
+      <div className="w-full h-full grow flex items-center justify-center pointer-events-none">
         <div className="flex flex-col items-center justify-center w-[900px] h-[485px]">
           <Tldraw hideUi onMount={handleMount} className="rounded-lg">
             <Palette />
