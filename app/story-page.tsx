@@ -55,7 +55,7 @@ export default function StoryPage() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center relative overflow-hidden">
+    <main className="flex min-h-screen max-h-screen flex-col items-center relative overflow-hidden">
       <Header />
 
       <div className="w-full h-full grow flex items-center justify-center pointer-events-none">
