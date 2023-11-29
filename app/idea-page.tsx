@@ -65,7 +65,7 @@ const StoryIdeaPage = ({
           />
 
           <div className="shadow-md rounded-xl p-6 border-2 text-lg">
-            <p>It&apos;s great to meet you, Amy 🌈.</p>
+            <p>It&apos;s great to meet you, 🌈.</p>
             <p>What are you interested in?</p>
           </div>
         </div>
