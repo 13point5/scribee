@@ -50,14 +50,14 @@ function useStyleChangeCallback() {
 }
 
 const Palette = track(() => {
-  const editor = useEditor();
-  console.log("editor", editor.currentTool);
-
   const handleValueChange = useStyleChangeCallback();
+
+  const [currentColor, setCurrentColor] = React.useState<string>(colors[0]);
 
   const handleButtonClick = (e: React.PointerEvent<HTMLButtonElement>) => {
     const { id } = e.currentTarget;
 
+    setCurrentColor(id);
     handleValueChange(DefaultColorStyle, id, false);
   };
 
@@ -69,7 +69,7 @@ const Palette = track(() => {
             color={color}
             key={color}
             index={index}
-            active={index % 2 == 0}
+            active={colors[index] === currentColor}
             onClick={handleButtonClick}
           />
         ))}
@@ -99,7 +99,7 @@ const PaletteColor = ({
       className={`rounded-full h-15 w-15 p-3 ${active && "h-20 w-20"}`}
     >
       <div
-        className={`w-8 h-8 rounded-full ${color} ${active && "w-12 h-12"}`}
+        className={`rounded-full ${color} ${active ? "w-12 h-12" : "w-8 h-8"}`}
       ></div>
     </Button>
   );

@@ -62,13 +62,7 @@ const Toolbar = track(() => {
           <LassoSelectIcon />
         </Button>
         <Button
-          onClick={() =>
-            editor.setCurrentTool("draw", {
-              data: {
-                color: "red",
-              },
-            })
-          }
+          onClick={() => editor.setCurrentTool("draw")}
           size="icon"
           variant="ghost"
           className={`${
