@@ -8,6 +8,12 @@ export enum Stage {
 
 export type PageStateItem = {
   picUrl: string;
+  feedbacks: FeedbacksForPage;
 };
 
 export type PageState = PageStateItem[];
+
+export type FeedbacksForPage = null | {
+  mechanics: string;
+  creative: string;
+};

@@ -46,9 +46,8 @@ const StoryIdeaPage = ({
         squashing: false,
       });
       editor.updateInstanceState({ isChangingStyle: true });
+      editor.setCurrentTool("draw");
     });
-
-    editor.setCurrentTool("draw");
   }, []);
 
   return (

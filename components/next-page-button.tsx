@@ -1,5 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { LightbulbIcon, Loader2, PlusIcon, WrenchIcon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  BrainIcon,
+  LightbulbIcon,
+  Loader2,
+  PlusIcon,
+  WrenchIcon,
+} from "lucide-react";
 import { track, useEditor } from "@tldraw/tldraw";
 import axios from "axios";
 import * as ByteScale from "@bytescale/sdk";
@@ -13,18 +21,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { exportAs } from "@/lib/utils";
+import { FeedbacksForPage } from "@/app/types";
 
 const uploadManager = new ByteScale.UploadManager({
   apiKey: "public_W142iLu7Bprevy3B942MBWvx28Gy", // This is your API key.
 });
 
-const NextPageButton = track(() => {
+const NextPageButton = track(({ feedbacks, setFeedbacks }) => {
+  console.log("feedbacks", feedbacks);
   const editor = useEditor();
 
-  const [feedbacks, setFeedbacks] = useState<null | {
-    mechanics: string;
-    creative: string;
-  }>(null);
+  // const [feedbacks, setFeedbacks] = useState<FeedbacksForPage>(null);
   const [analysing, setAnalysing] = useState(false);
 
   const getCanvasImage = async () => {
@@ -69,7 +76,6 @@ const NextPageButton = track(() => {
       });
 
       const text = res.data.response.choices[0].message.content;
-      console.log("text", text);
 
       const feedbackResponses = await Promise.all([
         axios.post("/api/feedback", {
@@ -92,7 +98,6 @@ const NextPageButton = track(() => {
         }),
       ]);
 
-      console.log("feedbackResponses", feedbackResponses);
       setFeedbacks({
         mechanics:
           feedbackResponses[0].data.response.choices[0].message.content,
@@ -109,6 +114,14 @@ const NextPageButton = track(() => {
     <div className="fixed top-[45%] right-[0px] left-0 z-[300] inset-0 pointer-events-none">
       <div className="pointer-events-auto w-full flex items-center justify-between fixed px-[50px]">
         <div className="flex flex-col gap-4">
+          <Button
+            size="icon"
+            className={`w-[45px] h-[45px] rounded-full`}
+            variant="outline"
+          >
+            <ArrowLeftIcon size={25} />
+          </Button>
+
           <Dialog>
             <DialogTrigger>
               <Button
@@ -164,17 +177,28 @@ const NextPageButton = track(() => {
           </Dialog>
         </div>
 
-        <Button
-          onClick={getCanvasImage}
-          size="icon"
-          className="w-[45px] h-[45px] rounded-full"
-        >
-          {analysing ? (
-            <Loader2 size={25} className="animate-spin" />
-          ) : (
-            <PlusIcon size={25} />
-          )}
-        </Button>
+        <div className="flex flex-col gap-4">
+          <Button
+            onClick={getCanvasImage}
+            size="icon"
+            className="w-[45px] h-[45px] rounded-full"
+          >
+            {analysing ? (
+              <Loader2 size={25} className="animate-spin" />
+            ) : (
+              <BrainIcon size={25} />
+            )}
+          </Button>
+
+          <Button
+            size="icon"
+            className={`w-[45px] h-[45px] rounded-full`}
+            disabled={!feedbacks}
+            variant="outline"
+          >
+            <ArrowRightIcon size={25} />
+          </Button>
+        </div>
       </div>
     </div>
   );

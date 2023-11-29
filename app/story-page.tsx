@@ -7,7 +7,7 @@ import Palette from "@/components/palette";
 import Toolbar from "@/components/toolbar";
 import { Canvas, Tldraw, Editor, Box2d, StyleProp } from "@tldraw/tldraw";
 import "@tldraw/tldraw/tldraw.css";
-import { PageStateItem } from "@/app/types";
+import { FeedbacksForPage, PageStateItem } from "@/app/types";
 import { dataURLtoFile } from "@/lib/utils";
 
 const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
@@ -17,8 +17,14 @@ const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
 
 export default function StoryPage({
   picUrl,
+  title,
+  feedbacks,
+  setFeedbacks,
 }: {
+  title: string;
   picUrl: PageStateItem["picUrl"];
+  feedbacks: FeedbacksForPage;
+  setFeedbacks: (feedbacks: FeedbacksForPage) => void;
 }) {
   const insertImg = async (editor: Editor) => {
     const imgFile = dataURLtoFile(picUrl, "bla.png");
@@ -39,9 +45,8 @@ export default function StoryPage({
         squashing: false,
       });
       editor.updateInstanceState({ isChangingStyle: true });
+      editor.setCurrentTool("draw");
     });
-
-    editor.setCurrentTool("draw");
   };
 
   const handleMount = useCallback((editor: Editor) => {
@@ -50,7 +55,7 @@ export default function StoryPage({
 
   return (
     <main className="flex flex-col items-center relative overflow-hidden">
-      <Header />
+      <Header title={title} />
 
       <div className="w-full flex items-center justify-center">
         <div className="flex flex-col items-center justify-center mt-[105px] w-[900px] h-[385px]">
@@ -64,7 +69,7 @@ export default function StoryPage({
 
             <Toolbar />
 
-            <NextPageButton />
+            <NextPageButton feedbacks={feedbacks} setFeedbacks={setFeedbacks} />
           </Tldraw>
         </div>
       </div>

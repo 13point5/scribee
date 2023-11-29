@@ -3,7 +3,12 @@
 import StoryIdeaPage from "@/app/idea-page";
 import SelectIdeaPage from "@/app/select-idea-page";
 import StoryPage from "@/app/story-page";
-import { StoryStateItem, Stage, PageState } from "@/app/types";
+import {
+  StoryStateItem,
+  Stage,
+  PageState,
+  FeedbacksForPage,
+} from "@/app/types";
 import { toDataURL } from "@/lib/utils";
 import { useState } from "react";
 
@@ -27,6 +32,7 @@ const Home = () => {
     setPages([
       {
         picUrl,
+        feedbacks: null,
       },
     ]);
     setCurrentPageIndex(0);
@@ -37,6 +43,19 @@ const Home = () => {
     setStories(stories);
 
     if (stories) setStage(Stage.SelectIdea);
+  };
+
+  const setFeedbacks = (newFeedbacks: FeedbacksForPage) => {
+    setPages((prevPages) =>
+      prevPages.map((page, index) => {
+        if (index !== currentPageIndex) return page;
+
+        return {
+          ...page,
+          feedbacks: newFeedbacks,
+        };
+      })
+    );
   };
 
   if (stage === Stage.Idea)
@@ -52,8 +71,20 @@ const Home = () => {
       />
     );
 
-  if (stage === Stage.Page && pages.length > 0)
-    return <StoryPage picUrl={pages[0].picUrl} />;
+  if (
+    stage === Stage.Page &&
+    stories &&
+    stories?.length > 0 &&
+    pages.length > 0
+  )
+    return (
+      <StoryPage
+        title={stories[storyIndex].title}
+        picUrl={pages[currentPageIndex].picUrl}
+        feedbacks={pages[currentPageIndex].feedbacks}
+        setFeedbacks={setFeedbacks}
+      />
+    );
 
   return <div>home</div>;
 };
