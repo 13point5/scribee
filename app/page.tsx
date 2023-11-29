@@ -126,15 +126,16 @@ const NextButton = track(() => {
     console.log("text", text);
 
     const storiesResponse = await axios.post("/api/feedback", {
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "user",
-          content: `Generate 3 short story titles for picture books that will be written by kids in grades 2-4 based on the following interest: ${text}. Give output as a numbered list and dont add any extra messages. Keep the story titles short and easy to understand for kids in grades 2-4.`,
+          content: `Generate 3 short story titles for picture books that will be written by kids in grades 2-4 based on the following interest: ${text}. Give output as 3 titles separated in 3 lines without numbers for representing the order and dont add any extra messages. Keep the story titles short, creative, and easy to understand for kids in grades 2-4.`,
         },
       ],
     });
-    const stories = res.data.response.choices[0].message.content;
-    console.log("stories", stories);
+    const stories = storiesResponse.data.response.choices[0].message.content;
+    console.log("stories", stories.split("\n"));
   };
 
   return (
