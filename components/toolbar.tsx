@@ -3,7 +3,13 @@
 import { track, useEditor } from "@tldraw/tldraw";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { EraserIcon, LassoSelectIcon, PencilIcon } from "lucide-react";
+import {
+  EraserIcon,
+  LassoSelectIcon,
+  PencilIcon,
+  RedoIcon,
+  UndoIcon,
+} from "lucide-react";
 
 const Toolbar = track(() => {
   const editor = useEditor();
@@ -18,21 +24,21 @@ const Toolbar = track(() => {
           editor.deleteShapes(editor.selectedShapeIds);
           break;
         }
-        case "v": {
-          editor.setCurrentTool("select");
-          break;
-        }
-        case "e": {
-          editor.setCurrentTool("eraser");
-          break;
-        }
-        case "x":
-        case "p":
-        case "b":
-        case "d": {
-          editor.setCurrentTool("draw");
-          break;
-        }
+        // case "v": {
+        //   editor.setCurrentTool("select");
+        //   break;
+        // }
+        // case "e": {
+        //   editor.setCurrentTool("eraser");
+        //   break;
+        // }
+        // case "x":
+        // case "p":
+        // case "b":
+        // case "d": {
+        //   editor.setCurrentTool("draw");
+        //   break;
+        // }
       }
     };
 
@@ -80,6 +86,28 @@ const Toolbar = track(() => {
           } hover:bg-gray-200`}
         >
           <EraserIcon />
+        </Button>
+
+        <Button
+          onClick={() => editor.undo()}
+          size="icon"
+          variant="ghost"
+          className={`${
+            currentToolId === "eraser" && "bg-white"
+          } hover:bg-gray-200`}
+        >
+          <UndoIcon />
+        </Button>
+
+        <Button
+          onClick={() => editor.redo()}
+          size="icon"
+          variant="ghost"
+          className={`${
+            currentToolId === "eraser" && "bg-white"
+          } hover:bg-gray-200`}
+        >
+          <RedoIcon />
         </Button>
       </div>
     </div>
