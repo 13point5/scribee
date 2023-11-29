@@ -5,3 +5,9 @@ export enum Stage {
   SelectIdea,
   Page,
 }
+
+export type PageStateItem = {
+  imgUrl: string;
+};
+
+export type PageState = PageStateItem[];

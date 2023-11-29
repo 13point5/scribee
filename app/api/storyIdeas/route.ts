@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     stories.map((storyTitle) =>
       openai.images.generate({
         model: "dall-e-3",
-        prompt: `Cover for a picture book titled: ${storyTitle}. This book is written by kids in grades 2-4 so adjust the style accordingly`,
+        prompt: `Cover for a picture book titled: ${storyTitle}. This book is written by kids in grades 2-4 so adjust the style accordingly. The aesthetics should be disney style.`,
         n: 1,
         size: "1024x1024",
       })
