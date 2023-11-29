@@ -22,7 +22,7 @@ import StoryPage from "./story-page";
 export default StoryPage;
 
 const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
-  defaultValue: "xl",
+  defaultValue: "m",
   values: ["s", "m", "l", "xl"],
 });
 

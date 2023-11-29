@@ -21,7 +21,7 @@ function dataURLtoFile(dataurl: string, filename: string) {
 }
 
 const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
-  defaultValue: "xl",
+  defaultValue: "m",
   values: ["s", "m", "l", "xl"],
 });
 
@@ -37,11 +37,11 @@ export default function StoryPage() {
 
     editor.batch(() => {
       if (editor.isIn("select")) {
-        editor.setStyleForSelectedShapes(DefaultSizeStyle, "xl", {
+        editor.setStyleForSelectedShapes(DefaultSizeStyle, "m", {
           squashing: false,
         });
       }
-      editor.setStyleForNextShapes(DefaultSizeStyle, "xl", {
+      editor.setStyleForNextShapes(DefaultSizeStyle, "m", {
         squashing: false,
       });
       editor.updateInstanceState({ isChangingStyle: true });
