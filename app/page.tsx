@@ -2,78 +2,130 @@
 
 import { useCallback } from "react";
 import Header from "@/components/header";
-import NextPageButton from "@/components/next-page-button";
-import Palette from "@/components/palette";
-import Toolbar from "@/components/toolbar";
-import { Canvas, Tldraw, Editor, Box2d, StyleProp } from "@tldraw/tldraw";
+import {
+  Canvas,
+  Tldraw,
+  Editor,
+  StyleProp,
+  track,
+  useEditor,
+} from "@tldraw/tldraw";
 import "@tldraw/tldraw/tldraw.css";
+import { Button } from "@/components/ui/button";
+import { ArrowRightIcon } from "lucide-react";
+import { exportAs } from "@/lib/utils";
 
-function dataURLtoFile(dataurl: string, filename: string) {
-  let arr = dataurl.split(","),
-    mime = arr[0]?.match(/:(.*?);/)?.[1],
-    bstr = atob(arr[arr.length - 1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-  return new File([u8arr], filename, { type: mime });
-}
+import axios from "axios";
+import * as ByteScale from "@bytescale/sdk";
 
 export const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
   defaultValue: "xl",
   values: ["s", "m", "l", "xl"],
 });
 
-export default function Home() {
-  const insertImg = async (editor: Editor) => {
-    const imgFile = dataURLtoFile("", "bla.png");
-
-    await editor.putExternalContent({
-      type: "files",
-      files: Array.from([imgFile]),
-      ignoreParent: true,
-    });
-
+const StoryIdeaPage = () => {
+  const handleMount = useCallback((editor: Editor) => {
     editor.batch(() => {
       if (editor.isIn("select")) {
-        editor.setStyleForSelectedShapes(DefaultSizeStyle, "xl", {
+        editor.setStyleForSelectedShapes(DefaultSizeStyle, "m", {
           squashing: false,
         });
       }
-      editor.setStyleForNextShapes(DefaultSizeStyle, "xl", {
+      editor.setStyleForNextShapes(DefaultSizeStyle, "m", {
         squashing: false,
       });
       editor.updateInstanceState({ isChangingStyle: true });
     });
 
     editor.setCurrentTool("draw");
-  };
-
-  const handleMount = useCallback((editor: Editor) => {
-    // insertImg(editor);
   }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center relative">
       <Header />
 
-      <div className="w-full h-full grow flex items-center justify-center">
-        <div className="flex flex-col items-center justify-center w-[900px] h-[485px]">
-          <Tldraw hideUi onMount={handleMount}>
-            <Palette />
+      <div className="w-[745px] h-full grow flex flex-col items-center py-10 px-15">
+        <div className="relative mb-20">
+          <img
+            src="scribee1.svg"
+            className="w-20 absolute left-[-65px] top-[50px]"
+            alt="scribee"
+          />
+
+          <div className="shadow-md rounded-xl p-6 border-2 text-lg">
+            <p>It&apos;s great to meet you, Amy 🌈.</p>
+            <p>What are you interested in?</p>
+          </div>
+        </div>
+
+        <div className="w-[745px] h-[190px] mt-50 mb-5 relative">
+          <Tldraw hideUi onMount={handleMount} className="rounded-lg">
             <Canvas />
 
-            <div className="z-[300] fixed bottom-[80px] left-[250px]">
-              <img src="scribee1.svg" className="w-20" alt="scribee" />
+            <div className="w-full flex gap-4 justify-end z-[300] fixed top-[520px] right-[380px]">
+              <NextButton />
             </div>
-
-            <Toolbar />
-
-            <NextPageButton />
           </Tldraw>
         </div>
       </div>
     </main>
   );
-}
+};
+
+export default StoryIdeaPage;
+
+const uploadManager = new ByteScale.UploadManager({
+  apiKey: "public_W142iLu7Bprevy3B942MBWvx28Gy", // This is your API key.
+});
+
+const NextButton = track(() => {
+  const editor = useEditor();
+
+  const handleClick = async () => {
+    const img = await exportAs(editor);
+    if (!img) throw new Error("img is null");
+    // console.log("imgUrl", imgUrl);
+
+    const res1 = await uploadManager.upload({ data: img });
+    // console.log("res", res1);
+    const { fileUrl } = res1;
+    console.log("fileUrl", fileUrl);
+    const resizedUrl = fileUrl.replace("/raw/", "/image/") + "?w=512&h=512";
+    console.log("resizedUrl", resizedUrl);
+
+    // return;
+
+    const res = await axios.post("/api/feedback", {
+      model: "gpt-4-vision-preview",
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              // text: "Give me feedback on mechanics for my story writing in the image attached",
+              text: "What's written in the image? Keep in mind its written by a kid in grades 2-4 and so the handwriting is very bad. Just return the text, no other message",
+            },
+            {
+              type: "image_url",
+              // image_url: resizedUrl,
+              image_url: {
+                url: resizedUrl,
+                detail: "low",
+              },
+            },
+          ],
+        },
+      ],
+    });
+
+    const text = res.data.response.choices[0].message.content;
+    console.log("text", text);
+  };
+
+  return (
+    <Button onClick={handleClick}>
+      Next <ArrowRightIcon className="ml-2" />
+    </Button>
+  );
+});

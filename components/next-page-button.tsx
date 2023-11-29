@@ -1,15 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { LightbulbIcon, Loader2, PlusIcon, WrenchIcon } from "lucide-react";
-import { track, useEditor, Editor, resizeBox } from "@tldraw/tldraw";
-import { getSvgAsImage } from "./export";
+import { track, useEditor } from "@tldraw/tldraw";
 import axios from "axios";
 import * as ByteScale from "@bytescale/sdk";
 import { useState } from "react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import {
   Dialog,
   DialogContent,
@@ -18,43 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-function blobToBase64(blob: Blob) {
-  return new Promise((resolve, _) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.readAsDataURL(blob);
-  });
-}
-
-export const exportAs = async (editor: Editor) => {
-  console.log({
-    shapeIds: [...editor.currentPageShapeIds],
-    shapes: editor.currentPageShapes,
-  });
-  const shapes = editor.currentPageShapes;
-  const filteredShapeIds = shapes
-    .filter((shape) => shape.type !== "image")
-    .map((shape) => shape.id);
-  const svg = await editor.getSvg(filteredShapeIds);
-
-  if (!svg) {
-    throw new Error("Could not construct SVG.");
-  }
-
-  const format = "png";
-
-  const image = await getSvgAsImage(svg, editor.environment.isSafari, {
-    type: format,
-    quality: 1,
-    scale: 2,
-  });
-  return image;
-  if (!image) throw Error();
-
-  const b64 = await blobToBase64(image);
-  return b64;
-};
+import { exportAs } from "@/lib/utils";
 
 const uploadManager = new ByteScale.UploadManager({
   apiKey: "public_W142iLu7Bprevy3B942MBWvx28Gy", // This is your API key.
@@ -74,6 +32,7 @@ const NextPageButton = track(() => {
       setAnalysing(true);
 
       const img = await exportAs(editor);
+      if (!img) throw new Error("img is null");
       // console.log("imgUrl", imgUrl);
 
       const res1 = await uploadManager.upload({ data: img });

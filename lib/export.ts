@@ -1,5 +1,5 @@
 import { PngHelpers } from "@tldraw/editor";
-import { getBrowserCanvasMaxSize } from "./getBrowserCanvasMaxSize";
+import { getBrowserCanvasMaxSize } from "../components/getBrowserCanvasMaxSize";
 
 /** @public */
 export async function getSvgAsImage(

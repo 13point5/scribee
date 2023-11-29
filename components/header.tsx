@@ -9,9 +9,9 @@ const Header = () => {
       </h3>
 
       <div className="flex items-center space-x-4">
-        <Button variant="ghost" size="icon">
+        {/* <Button variant="ghost" size="icon">
           <SpeakerIcon />
-        </Button>
+        </Button> */}
 
         <Button variant="ghost" size="icon">
           <User2Icon />
