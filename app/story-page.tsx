@@ -20,7 +20,7 @@ function dataURLtoFile(dataurl: string, filename: string) {
   return new File([u8arr], filename, { type: mime });
 }
 
-export const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
+const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
   defaultValue: "xl",
   values: ["s", "m", "l", "xl"],
 });

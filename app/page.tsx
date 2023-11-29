@@ -18,7 +18,7 @@ import { exportAs } from "@/lib/utils";
 import axios from "axios";
 import * as ByteScale from "@bytescale/sdk";
 
-export const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
+const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
   defaultValue: "xl",
   values: ["s", "m", "l", "xl"],
 });
@@ -121,6 +121,17 @@ const NextButton = track(() => {
 
     const text = res.data.response.choices[0].message.content;
     console.log("text", text);
+
+    const storiesResponse = await axios.post("/api/feedback", {
+      messages: [
+        {
+          role: "user",
+          content: `Generate 3 short story titles for picture books that will be written by kids in grades 2-4 based on the following interest: ${text}. Give output as a numbered list and dont add any extra messages. Keep the story titles short and easy to understand for kids in grades 2-4.`,
+        },
+      ],
+    });
+    const stories = res.data.response.choices[0].message.content;
+    console.log("stories", stories);
   };
 
   return (
