@@ -7,7 +7,7 @@ export enum Stage {
 }
 
 export type PageStateItem = {
-  imgUrl: string;
+  picUrl: string;
 };
 
 export type PageState = PageStateItem[];

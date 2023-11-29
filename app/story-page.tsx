@@ -7,33 +7,27 @@ import Palette from "@/components/palette";
 import Toolbar from "@/components/toolbar";
 import { Canvas, Tldraw, Editor, Box2d, StyleProp } from "@tldraw/tldraw";
 import "@tldraw/tldraw/tldraw.css";
-
-function dataURLtoFile(dataurl: string, filename: string) {
-  let arr = dataurl.split(","),
-    mime = arr[0]?.match(/:(.*?);/)?.[1],
-    bstr = atob(arr[arr.length - 1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-  return new File([u8arr], filename, { type: mime });
-}
+import { PageStateItem } from "@/app/types";
+import { dataURLtoFile } from "@/lib/utils";
 
 const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
   defaultValue: "m",
   values: ["s", "m", "l", "xl"],
 });
 
-export default function StoryPage() {
+export default function StoryPage({
+  picUrl,
+}: {
+  picUrl: PageStateItem["picUrl"];
+}) {
   const insertImg = async (editor: Editor) => {
-    // const imgFile = dataURLtoFile("", "bla.png");
+    const imgFile = dataURLtoFile(picUrl, "bla.png");
 
-    // await editor.putExternalContent({
-    //   type: "files",
-    //   files: Array.from([imgFile]),
-    //   ignoreParent: true,
-    // });
+    await editor.putExternalContent({
+      type: "files",
+      files: Array.from([imgFile]),
+      ignoreParent: true,
+    });
 
     editor.batch(() => {
       if (editor.isIn("select")) {

@@ -13,7 +13,7 @@ import {
 import "@tldraw/tldraw/tldraw.css";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, Loader2Icon } from "lucide-react";
-import { exportAs } from "@/lib/utils";
+import { b64_json_to_dataUrl, exportAs, toDataURL } from "@/lib/utils";
 
 import axios from "axios";
 import * as ByteScale from "@bytescale/sdk";
@@ -146,11 +146,12 @@ const NextButton = track(({ loading, setLoading, setStories }) => {
       const res2 = await axios.post("/api/storyIdeas", {
         text,
       });
+
       console.log("res2", res2);
       setStories(
         res2.data.stories.map((title: string, index: number) => ({
           title,
-          imgUrl: res2.data.images[index],
+          imgUrl: b64_json_to_dataUrl(res2.data.images[index]),
         }))
       );
     } catch (error) {

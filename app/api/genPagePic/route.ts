@@ -31,7 +31,9 @@ export async function POST(req: Request) {
     prompt: `Generate a picture for a page of a picture book given the story so far and a description of the new page. Do not add any text to the generated image. The aesthetics should be disney style. Story: ${story}. Page Description: ${description}`,
     n: 1,
     size: "1024x1024",
+    response_format: "b64_json",
   });
+  console.log("image", image);
 
-  return Response.json({ image: image.data[0].url });
+  return Response.json({ image: image.data[0].b64_json });
 }

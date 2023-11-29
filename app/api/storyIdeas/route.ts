@@ -35,10 +35,12 @@ export async function POST(req: Request) {
         prompt: `Cover for a picture book titled: ${storyTitle}. This book is written by kids in grades 2-4 so adjust the style accordingly. The aesthetics should be disney style.`,
         n: 1,
         size: "1024x1024",
+        response_format: "b64_json",
       })
     )
   );
-  const imgUrls = images.map((img) => img.data[0].url);
+  console.log("images", Object.keys(images[0].data[0]));
+  const imgUrls = images.map((img) => img.data[0].b64_json);
 
   return Response.json({ stories, images: imgUrls });
 }

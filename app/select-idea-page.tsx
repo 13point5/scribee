@@ -1,6 +1,7 @@
 import { StoryStateItem } from "@/app/types";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
+import { b64_json_to_dataUrl } from "@/lib/utils";
 import axios from "axios";
 import { ArrowRightIcon, Loader2Icon } from "lucide-react";
 import { useState } from "react";
@@ -29,7 +30,7 @@ const SelectIdeaPage = ({
       });
       console.log("res", res);
 
-      handleNext(res.data.image);
+      handleNext(b64_json_to_dataUrl(res.data.image));
     } catch (error) {
       console.error(error);
     } finally {
