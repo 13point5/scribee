@@ -742,6 +742,11 @@
   dependencies:
     "@tldraw/utils" "2.0.0-alpha.18"
 
+"@types/canvas-size@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@types/canvas-size/-/canvas-size-1.2.2.tgz#664ca4d270286f6d22b9c8115752636e3de94663"
+  integrity sha512-yuTXFWC4tHV3lt5ZtbIP9VeeMNbDYm5mPyqaQnaMuSSx2mjsfZGXMNmHTnfdsR5qZdB6dtbaV5IP2PKv79vmKg==
+
 "@types/core-js@^2.5.5":
   version "2.5.8"
   resolved "https://registry.yarnpkg.com/@types/core-js/-/core-js-2.5.8.tgz#d5c6ec44f2f3328653dce385ae586bd8261f8e85"
