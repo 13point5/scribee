@@ -3,7 +3,7 @@
 import Header from "@/components/header";
 import Palette from "@/components/palette";
 import Toolbar from "@/components/toolbar";
-import { Canvas, Tldraw, track, useEditor } from "@tldraw/tldraw";
+import { Canvas, Tldraw } from "@tldraw/tldraw";
 import "@tldraw/tldraw/tldraw.css";
 
 export default function Home() {

@@ -88,6 +88,8 @@ const PaletteColor = ({
 }: {
   color: string;
   active: boolean;
+  index: number;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
   return (
     <Button
