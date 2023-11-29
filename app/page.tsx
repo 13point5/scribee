@@ -17,6 +17,9 @@ import { exportAs } from "@/lib/utils";
 
 import axios from "axios";
 import * as ByteScale from "@bytescale/sdk";
+import StoryPage from "./story-page";
+
+export default StoryPage;
 
 const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
   defaultValue: "xl",
@@ -72,7 +75,7 @@ const StoryIdeaPage = () => {
   );
 };
 
-export default StoryIdeaPage;
+// export default StoryIdeaPage;
 
 const uploadManager = new ByteScale.UploadManager({
   apiKey: "public_W142iLu7Bprevy3B942MBWvx28Gy", // This is your API key.
