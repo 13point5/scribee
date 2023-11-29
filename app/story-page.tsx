@@ -59,12 +59,12 @@ export default function StoryPage() {
       <Header />
 
       <div className="w-full flex items-center justify-center">
-        <div className="flex flex-col items-center justify-center mt-[120px] w-[900px] h-[385px]">
+        <div className="flex flex-col items-center justify-center mt-[105px] w-[900px] h-[385px]">
           <Tldraw hideUi onMount={handleMount} className="rounded-lg">
             <Palette />
             <Canvas />
 
-            <div className="z-[300] fixed bottom-[80px] left-[250px]">
+            <div className="z-[300] fixed bottom-[45px] left-[50px]">
               <img src="scribee1.svg" className="w-20" alt="scribee" />
             </div>
 

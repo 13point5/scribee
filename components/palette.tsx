@@ -62,7 +62,7 @@ const Palette = track(() => {
   };
 
   return (
-    <div className="fixed top-[90px] z-[300] inset-0 pointer-events-none">
+    <div className="fixed top-[70px] z-[300] inset-0 pointer-events-none">
       <div className="fixed w-full flex gap-2 items-center justify-center pointer-events-auto">
         {tailwindColors.map((color, index) => (
           <PaletteColor
