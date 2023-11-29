@@ -1,4 +1,6 @@
 import Header from "@/components/header";
+import { Button } from "@/components/ui/button";
+import { ArrowRightIcon } from "lucide-react";
 import { useState } from "react";
 
 const stories = [
@@ -22,6 +24,10 @@ const stories = [
 const SelectIdeaPage = () => {
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
 
+  const handleStartWriting = () => {
+    console.log("bla");
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center relative">
       <Header />
@@ -29,7 +35,7 @@ const SelectIdeaPage = () => {
       <div className="w-[745px] h-full grow flex flex-col gap-8 items-center py-10 px-15">
         <img
           src={stories[currentStoryIndex].imgUrl}
-          className="rounded-lg h-[350px]"
+          className="rounded-lg h-[300px]"
           alt={stories[currentStoryIndex].title}
         />
 
@@ -53,6 +59,15 @@ const SelectIdeaPage = () => {
             </div>
           ))}
         </div>
+
+        <Button onClick={handleStartWriting}>
+          Next <ArrowRightIcon className="ml-2" />
+          {/* {loading ? (
+        <Loader2Icon className="animate-spin ml-2" />
+      ) : (
+        <ArrowRightIcon className="ml-2" />
+      )} */}
+        </Button>
       </div>
     </main>
   );
