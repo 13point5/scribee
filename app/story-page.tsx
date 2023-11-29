@@ -27,13 +27,13 @@ const DefaultSizeStyle = StyleProp.defineEnum("tldraw:size", {
 
 export default function StoryPage() {
   const insertImg = async (editor: Editor) => {
-    const imgFile = dataURLtoFile("", "bla.png");
+    // const imgFile = dataURLtoFile("", "bla.png");
 
-    await editor.putExternalContent({
-      type: "files",
-      files: Array.from([imgFile]),
-      ignoreParent: true,
-    });
+    // await editor.putExternalContent({
+    //   type: "files",
+    //   files: Array.from([imgFile]),
+    //   ignoreParent: true,
+    // });
 
     editor.batch(() => {
       if (editor.isIn("select")) {
@@ -51,7 +51,7 @@ export default function StoryPage() {
   };
 
   const handleMount = useCallback((editor: Editor) => {
-    // insertImg(editor);
+    insertImg(editor);
   }, []);
 
   return (
