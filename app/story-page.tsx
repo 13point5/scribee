@@ -67,7 +67,7 @@ export default function StoryPage({
             hideUi
             onMount={handleMount}
             className="rounded-lg"
-            persistenceKey={`page-${pageIndex}`}
+            persistenceKey={`page-${pageIndex}-${Date.now()}`}
           >
             <Palette />
             <Canvas />
