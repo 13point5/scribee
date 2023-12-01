@@ -46,45 +46,76 @@ const NextPageButton = track(({ feedbacks, setFeedbacks, pageIndex }) => {
       // console.log("res", res1);
       const { fileUrl } = res1;
       console.log("fileUrl", fileUrl);
-      const resizedUrl = fileUrl.replace("/raw/", "/image/") + "?w=512&h=512";
-      console.log("resizedUrl", resizedUrl);
+      // const resizedUrl = fileUrl.replace("/raw/", "/image/") + "?w=512&h=512";
+      // console.log("resizedUrl", resizedUrl);
 
+      const res = await axios.post(
+        "https://api.mathpix.com/v3/text",
+        {
+          src: fileUrl,
+          formats: ["text"],
+        },
+        {
+          headers: {
+            app_id: process.env.NEXT_PUBLIC_MATHPIX_APP_ID,
+            app_key: process.env.NEXT_PUBLIC_MATHPIX_API_KEY,
+          },
+        }
+      );
+      console.log("res", res);
       // return;
 
-      const res = await axios.post("/api/feedback", {
-        model: "gpt-4-vision-preview",
-        messages: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "text",
-                // text: "Give me feedback on mechanics for my story writing in the image attached",
-                text: "What's written in the image? Keep in mind its written by a kid in grades 2-4 and so the handwriting is very bad. Just return the text, no other message",
-              },
-              {
-                type: "image_url",
-                // image_url: resizedUrl,
-                image_url: {
-                  url: resizedUrl,
-                  detail: "low",
-                },
-              },
-            ],
-          },
-        ],
-      });
+      const text = res.data.text;
 
-      const text = res.data.response.choices[0].message.content;
+      // const res = await axios.post("/api/feedback", {
+      //   model: "gpt-4-vision-preview",
+      //   messages: [
+      //     {
+      //       role: "system",
+      //       content:
+      //         "You are amazing at identifying handwritten text in images written by kids. just return the text in the image, nothing else",
+      //     },
+      //     {
+      //       role: "user",
+      //       content: [
+      //         {
+      //           type: "text",
+      //           // text: "Give me feedback on mechanics for my story writing in the image attached",
+      //           // text: "What's written in the image? Keep in mind its written by a kid in grades 2-4 and so the handwriting is very bad. Just return the text, no other message",
+      //           text: "identify the text in the image",
+      //         },
+      //         {
+      //           type: "image_url",
+      //           // image_url: resizedUrl,
+      //           image_url: {
+      //             url: resizedUrl,
+      //             detail: "low",
+      //           },
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // });
+
+      // const text = res.data.response.choices[0].message.content;
 
       const feedbackResponses = await Promise.all([
         axios.post("/api/feedback", {
           model: "gpt-3.5-turbo",
           messages: [
             {
-              role: "user",
-              content: `Give feedback on the mechanics of writing on the following aspects: Grammar, punctuation, spelling. Keep the language of the feedback targeted at a kid whos in grade 2-4. Text: ${text}`,
+              role: "system",
+              content:
+                "You are an expert at giving feedback to kids of grades 2-4 to improve their writing skills. You provide feedback on grammar, spelling, sentence structure and more. Use bullet points in your feedback to make it readable. Make sure the language of your feedback is easily understandable for kids in grades 2-4. You will be given the text written by the kid. Give them encouragement while helping them with the feedback",
             },
+            {
+              role: "user",
+              content: `Text: ${text}`,
+            },
+            // {
+            //   role: "user",
+            //   content: `Give feedback on the mechanics of the given text for the author to improve their writing on the following aspects: Grammar, punctuation, spelling. Keep the language of the feedback targeted at a kid whos in grade 2-4. Text: ${text}`,
+            // },
           ],
         }),
         axios.post("/api/feedback", {

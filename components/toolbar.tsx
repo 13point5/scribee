@@ -87,7 +87,7 @@ const Toolbar = track(() => {
           size="icon"
           variant="ghost"
           className={`${
-            currentToolId === "eraser" && "bg-white"
+            currentToolId === "undo" && "bg-white"
           } hover:bg-gray-200`}
         >
           <UndoIcon />
@@ -98,7 +98,7 @@ const Toolbar = track(() => {
           size="icon"
           variant="ghost"
           className={`${
-            currentToolId === "eraser" && "bg-white"
+            currentToolId === "redo" && "bg-white"
           } hover:bg-gray-200`}
         >
           <RedoIcon />
