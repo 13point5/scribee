@@ -100,6 +100,8 @@ const NextButton = track(({ loading, setLoading, setStories }) => {
   const editor = useEditor();
 
   const handleClick = async () => {
+    if (loading) return;
+
     setLoading(true);
     setStories(null);
 
@@ -179,7 +181,7 @@ const NextButton = track(({ loading, setLoading, setStories }) => {
   };
 
   return (
-    <Button onClick={handleClick}>
+    <Button onClick={handleClick} disabled={loading}>
       Next{" "}
       {loading ? (
         <Loader2Icon className="animate-spin ml-2" />
