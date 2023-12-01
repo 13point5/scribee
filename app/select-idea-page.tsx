@@ -22,6 +22,8 @@ const SelectIdeaPage = ({
   const [loading, setLoading] = useState(false);
 
   const handleStartWriting = async () => {
+    handleNext(stories[storyIndex].imgUrl);
+    return;
     setLoading(true);
 
     try {

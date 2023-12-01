@@ -142,8 +142,8 @@ const NextPageButton = track(({ feedbacks, setFeedbacks, pageIndex }) => {
   };
 
   return (
-    <div className="fixed top-[45%] right-[0px] left-0 z-[300] inset-0 pointer-events-none">
-      <div className="pointer-events-auto w-full flex items-center justify-between fixed px-[50px]">
+    <div className="fixed top-[45%] right-[0px] left-0 z-[300] inset-0">
+      <div className="w-full flex items-center justify-between fixed px-[50px]">
         <div className="flex flex-col gap-4">
           {pageIndex > 0 && (
             <Button

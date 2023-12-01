@@ -49,7 +49,7 @@ const Toolbar = track(() => {
   });
 
   return (
-    <div className="fixed z-[300] inset-0 pointer-events-none bottom-0 flex items-center justify-center w-full">
+    <div className="fixed z-[700] inset-0 pointer-events-none bottom-0 flex items-center justify-center w-full">
       <div className="fixed bottom-0 left-auto flex items-center justify-center p-4 gap-2 pointer-events-auto bg-gray-100 rounded-tl-3xl rounded-tr-3xl">
         <Button
           onClick={() => editor.setCurrentTool("select")}
